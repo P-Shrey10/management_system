@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Build output
+build/
+dist/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Frontend build folder (if React build is inside the client folder)
+client/build/
+
+# Backend build or output folder (if any)
+server/build/
+
+# Other
+coverage/
