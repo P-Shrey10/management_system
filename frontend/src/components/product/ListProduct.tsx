@@ -20,6 +20,8 @@ const ListProduct: React.FC = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [productsPerPage] = useState<number>(10);
 
   useEffect(() => {
     setTimeout(() => {
@@ -98,10 +100,9 @@ const ListProduct: React.FC = () => {
       setFilteredProducts(products);
     } else {
       const filtered = products.filter((product) =>
-        [product.name, product.type, product.brand]
-          .some((field) =>
-            field.toLowerCase().includes(searchTerm.toLowerCase())
-          )
+        [product.name, product.type, product.brand].some((field) =>
+          field.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       );
       setFilteredProducts(filtered);
     }
@@ -114,6 +115,28 @@ const ListProduct: React.FC = () => {
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
       alert("Product deleted successfully");
+    }
+  };
+
+  // Pagination logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  const paginateNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const paginatePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -150,7 +173,15 @@ const ListProduct: React.FC = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="bg-gray-100">
             <tr>
-              {["S.N", "Name", "Type", "Price", "Stock", "Brand", "Actions"].map((header) => (
+              {[
+                "S.N",
+                "Name",
+                "Type",
+                "Price",
+                "Stock",
+                "Brand",
+                "Actions",
+              ].map((header) => (
                 <th
                   key={header}
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -167,20 +198,24 @@ const ListProduct: React.FC = () => {
                   Loading...
                 </td>
               </tr>
-            ) : filteredProducts.length === 0 ? (
+            ) : currentProducts.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-6 py-4 text-center">
                   No products found
                 </td>
               </tr>
             ) : (
-              filteredProducts.map((product, index) => (
+              currentProducts.map((product, index) => (
                 <tr key={product.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {index + 1}
+                    {indexOfFirstProduct + index + 1}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.type}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {product.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {product.type}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     ${product.price.toFixed(2)}
                     {product.discountPrice && (
@@ -189,17 +224,24 @@ const ListProduct: React.FC = () => {
                       </div>
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.stock}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.brand}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {product.stock}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {product.brand}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <div className="flex justify-center space-x-3">
                       <Link to={`/product/view/${product.id}`} title="View">
                         <FaEye className="text-blue-600 hover:text-blue-800" />
                       </Link>
-                      <Link to={`/products/edit/${product.id}`} title="Edit">
+                      <Link to={`/product/edit/${product.id}`} title="Edit">
                         <FaEdit className="text-yellow-600 hover:text-yellow-800" />
                       </Link>
-                      <button onClick={() => handleDelete(product.id)} title="Delete">
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        title="Delete"
+                      >
                         <FaTrash className="text-red-600 hover:text-red-800" />
                       </button>
                     </div>
@@ -209,6 +251,48 @@ const ListProduct: React.FC = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination controls */}
+      <div className="flex justify-center mt-6">
+        <nav>
+          <ul className="inline-flex items-center -space-x-px">
+            <li>
+              <button
+                onClick={paginatePrev}
+                disabled={currentPage === 1}
+                className={`px-3 py-2 mx-2 leading-tight ${
+                  currentPage === 1
+                    ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    : "bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                } rounded-md`}
+              >
+                Previous
+              </button>
+            </li>
+            <li>
+              <button
+                className={`px-3 py-2 mx-2 leading-tight bg-[#614F7F] text-white rounded-md`}
+              >
+                {currentPage}
+              </button>
+            </li>
+
+            <li>
+              <button
+                onClick={paginateNext}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-2 mx-2 leading-tight ${
+                  currentPage === totalPages
+                    ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    : "bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                } rounded-md`}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );
