@@ -1,35 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
+import ForgotPassword from "./components/forget_password/ForgetPassword";
+import Signup from "./components/signup/Signup";
+import AdminLayout from "./adminMain";
+import Dashboard from "./components/dashboard/Dashboard";
+import AddProduct from "./components/product/AddProduct";
+import ViewProduct from "./components/product/ViewProduct";
+import ListProduct from "./components/product/ListProduct";
+import AddShopkeeper from "./components/shopkeeper/AddShopkeeper";
+import ViewShopkeeper from "./components/shopkeeper/ViewShopkeeper";
+import ListShopkeeper from "./components/shopkeeper/ListShopkeeper";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forget_password" element={<ForgotPassword />} />
+      <Route path="/signup" element={<Signup />} />
 
-export default App
+      <Route
+        path="/dashboard"
+        element={
+          <AdminLayout>
+            <Dashboard />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/product/add"
+        element={
+          <AdminLayout>
+            <AddProduct />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/product/view/:id"
+        element={
+          <AdminLayout>
+            <ViewProduct />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/product/edit/:id"
+        element={
+          <AdminLayout>
+            <AddProduct />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/product/list"
+        element={
+          <AdminLayout>
+            <ListProduct />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/shopkeeper/add"
+        element={
+          <AdminLayout>
+            <AddShopkeeper />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/shopkeeper/view/:id"
+        element={
+          <AdminLayout>
+            <ViewShopkeeper/>
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/shopkeeper/edit/:id"
+        element={
+          <AdminLayout>
+            <AddShopkeeper />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/shopkeeper/list"
+        element={
+          <AdminLayout>
+            <ListShopkeeper />
+          </AdminLayout>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default App;
