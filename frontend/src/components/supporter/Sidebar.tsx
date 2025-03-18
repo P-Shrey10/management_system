@@ -9,6 +9,8 @@ import {
   FaBox,
   FaClipboardList,
   FaUsers,
+  FaChevronUp,
+  FaChevronDown,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Logo from "../../../public/logo.png";
@@ -50,7 +52,13 @@ const Sidebar = () => {
                 <FaClipboardList className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Order</span>
               </div>
-              <span className="text-[#614F7F]">{orderOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {orderOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {orderOpen && (
               <div className="pl-6 space-y-2">
@@ -73,7 +81,13 @@ const Sidebar = () => {
                 <FaBox className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Product</span>
               </div>
-              <span className="text-[#614F7F]">{productOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {productOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {productOpen && (
               <div className="pl-6 space-y-2">
@@ -103,7 +117,11 @@ const Sidebar = () => {
                 <span className="text-[#614F7F]">Shopkeeper</span>
               </div>
               <span className="text-[#614F7F]">
-                {shopkeeperOpen ? "−" : "+"}
+                {shopkeeperOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
               </span>
             </div>
             {shopkeeperOpen && (
@@ -133,7 +151,13 @@ const Sidebar = () => {
                 <FaUsers className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Customer</span>
               </div>
-              <span className="text-[#614F7F]">{customerOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {customerOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {customerOpen && (
               <div className="pl-6 space-y-2">
@@ -162,7 +186,13 @@ const Sidebar = () => {
                 <FaShoppingBag className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Staff</span>
               </div>
-              <span className="text-[#614F7F]">{staffOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {staffOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {staffOpen && (
               <div className="pl-6 space-y-2">
