@@ -9,9 +9,11 @@ import {
   FaBox,
   FaClipboardList,
   FaUsers,
+  FaChevronUp,
+  FaChevronDown,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Logo from "../../../public/logo.png";
+import Logo from "/logo.png";
 
 const Sidebar = () => {
   const [orderOpen, setOrderOpen] = useState(false);
@@ -50,10 +52,22 @@ const Sidebar = () => {
                 <FaClipboardList className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Order</span>
               </div>
-              <span className="text-[#614F7F]">{orderOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {orderOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {orderOpen && (
               <div className="pl-6 space-y-2">
+                <Link to="/order/add">
+                  <div className="flex items-center space-x-3 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition-all duration-200">
+                    <FaPlus className="text-[#614F7F]" />
+                    <span className="text-[#614F7F]">Add Order</span>
+                  </div>
+                </Link>
                 <Link to="/order/list">
                   <div className="flex items-center space-x-3 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition-all duration-200">
                     <FaList className="text-[#614F7F]" />
@@ -73,7 +87,13 @@ const Sidebar = () => {
                 <FaBox className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Product</span>
               </div>
-              <span className="text-[#614F7F]">{productOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {productOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {productOpen && (
               <div className="pl-6 space-y-2">
@@ -103,7 +123,11 @@ const Sidebar = () => {
                 <span className="text-[#614F7F]">Shopkeeper</span>
               </div>
               <span className="text-[#614F7F]">
-                {shopkeeperOpen ? "−" : "+"}
+                {shopkeeperOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
               </span>
             </div>
             {shopkeeperOpen && (
@@ -133,7 +157,13 @@ const Sidebar = () => {
                 <FaUsers className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Customer</span>
               </div>
-              <span className="text-[#614F7F]">{customerOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {customerOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {customerOpen && (
               <div className="pl-6 space-y-2">
@@ -162,7 +192,13 @@ const Sidebar = () => {
                 <FaShoppingBag className="text-[#614F7F]" />
                 <span className="text-[#614F7F]">Staff</span>
               </div>
-              <span className="text-[#614F7F]">{staffOpen ? "−" : "+"}</span>
+              <span className="text-[#614F7F]">
+                {staffOpen ? (
+                  <FaChevronUp className="text-xs text-[#614F7F]" />
+                ) : (
+                  <FaChevronDown className="text-xs text-[#614F7F]" />
+                )}
+              </span>
             </div>
             {staffOpen && (
               <div className="pl-6 space-y-2">

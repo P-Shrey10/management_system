@@ -2,94 +2,100 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit, FaTrash, FaSearch } from "react-icons/fa";
 
-interface Product {
+interface Customer {
   id: string;
-  name: string;
-  type: string;
-  price: number;
-  discountPrice: number | null;
-  stock: number;
-  brand: string;
-  sku: string;
-  description: string;
-  images: string[];
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  mobileNumber: string;
+  email: string;
+  location: string;
+  dob: string;
+  customerPhoto: string;
+  documentType: string;
+  documentFile: string;
 }
 
-const ListProduct: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+const ListCustomer: React.FC = () => {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(10);
+  const [customersPerPage] = useState<number>(10);
 
   useEffect(() => {
     setTimeout(() => {
-      const mockProducts: Product[] = [
+      const mockCustomers: Customer[] = [
         {
           id: "1",
-          name: "Smartphone X",
-          type: "Electronics",
-          price: 999.99,
-          discountPrice: 899.99,
-          stock: 50,
-          brand: "TechBrand",
-          sku: "TECH-SP-001",
-          description: "Latest smartphone with advanced features",
-          images: ["image1.jpg", "image2.jpg"],
+          firstName: "Alice",
+          middleName: "Marie",
+          lastName: "Johnson",
+          mobileNumber: "+1 (555) 123-4567",
+          email: "alice.johnson@example.com",
+          location: "New York, NY",
+          dob: "1990-05-15",
+          customerPhoto: "alice.jpg",
+          documentType: "passport",
+          documentFile: "alice_passport.jpg",
         },
         {
           id: "2",
-          name: "Office Chair",
-          type: "Furniture",
-          price: 199.99,
-          discountPrice: null,
-          stock: 25,
-          brand: "ComfortPlus",
-          sku: "FURN-CH-002",
-          description: "Ergonomic office chair with lumbar support",
-          images: ["chair1.jpg"],
+          firstName: "Robert",
+          middleName: "",
+          lastName: "Smith",
+          mobileNumber: "+1 (555) 987-6543",
+          email: "robert.smith@example.com",
+          location: "Los Angeles, CA",
+          dob: "1985-10-22",
+          customerPhoto: "robert.jpg",
+          documentType: "national_id",
+          documentFile: "robert_national_id.pdf",
         },
         {
           id: "3",
-          name: "Wireless Headphones",
-          type: "Electronics",
-          price: 149.99,
-          discountPrice: 129.99,
-          stock: 100,
-          brand: "AudioMax",
-          sku: "TECH-HP-003",
-          description: "Noise cancelling wireless headphones",
-          images: ["headphones1.jpg", "headphones2.jpg"],
+          firstName: "Emily",
+          middleName: "Rose",
+          lastName: "Davis",
+          mobileNumber: "+1 (555) 456-7890",
+          email: "emily.davis@example.com",
+          location: "Chicago, IL",
+          dob: "1992-07-08",
+          customerPhoto: "emily.jpg",
+          documentType: "license",
+          documentFile: "emily_license.jpg",
         },
         {
           id: "4",
-          name: "Coffee Table",
-          type: "Furniture",
-          price: 249.99,
-          discountPrice: 199.99,
-          stock: 15,
-          brand: "HomeStyle",
-          sku: "FURN-TB-004",
-          description: "Modern coffee table with storage",
-          images: ["table1.jpg"],
+          firstName: "Michael",
+          middleName: "James",
+          lastName: "Wilson",
+          mobileNumber: "+1 (555) 234-5678",
+          email: "michael.wilson@example.com",
+          location: "Houston, TX",
+          dob: "1988-12-14",
+          customerPhoto: "michael.jpg",
+          documentType: "voter_card",
+          documentFile: "michael_voter_card.pdf",
         },
         {
           id: "5",
-          name: "Smart Watch",
-          type: "Electronics",
-          price: 299.99,
-          discountPrice: 279.99,
-          stock: 75,
-          brand: "TechBrand",
-          sku: "TECH-WT-005",
-          description: "Smart watch with health monitoring",
-          images: ["watch1.jpg", "watch2.jpg"],
+          firstName: "Sophia",
+          middleName: "",
+          lastName: "Martinez",
+          mobileNumber: "+1 (555) 876-5432",
+          email: "sophia.martinez@example.com",
+          location: "Miami, FL",
+          dob: "1995-03-27",
+          customerPhoto: "sophia.jpg",
+          documentType: "pan_card",
+          documentFile: "sophia_pan_card.jpg",
         },
       ];
 
-      setProducts(mockProducts);
-      setFilteredProducts(mockProducts);
+      setCustomers(mockCustomers);
+      setFilteredCustomers(mockCustomers);
       setIsLoading(false);
     }, 1000);
   }, []);
@@ -97,36 +103,57 @@ const ListProduct: React.FC = () => {
   // Search function
   useEffect(() => {
     if (searchTerm.trim() === "") {
-      setFilteredProducts(products);
+      setFilteredCustomers(customers);
     } else {
-      const filtered = products.filter((product) =>
-        [product.name, product.type, product.brand].some((field) =>
-          field.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = customers.filter((customer) =>
+        [
+          customer.firstName,
+          customer.middleName,
+          customer.lastName,
+          customer.email,
+          customer.location,
+        ].some((field) =>
+          field?.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
-      setFilteredProducts(filtered);
+      setFilteredCustomers(filtered);
     }
-  }, [searchTerm, products]);
+  }, [searchTerm, customers]);
 
   // Delete handler
   const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      const updatedProducts = products.filter((product) => product.id !== id);
-      setProducts(updatedProducts);
-      setFilteredProducts(updatedProducts);
-      alert("Product deleted successfully");
+    if (window.confirm("Are you sure you want to delete this customer?")) {
+      const updatedCustomers = customers.filter(
+        (customer) => customer.id !== id
+      );
+      setCustomers(updatedCustomers);
+      setFilteredCustomers(updatedCustomers);
+      alert("Customer deleted successfully");
     }
   };
 
+  // Get full name helper
+  const getFullName = (customer: Customer): string => {
+    return `${customer.firstName} ${
+      customer.middleName ? customer.middleName + " " : ""
+    }${customer.lastName}`;
+  };
+
+  // Format date helper
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
   // Pagination logic
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
+  const indexOfLastCustomer = currentPage * customersPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+  const currentCustomers = filteredCustomers.slice(
+    indexOfFirstCustomer,
+    indexOfLastCustomer
   );
 
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
 
   const paginateNext = () => {
     if (currentPage < totalPages) {
@@ -143,12 +170,12 @@ const ListProduct: React.FC = () => {
   return (
     <div className="p-8 max-w-7xl mx-auto bg-white rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-[#614F7F]">Products</h1>
+        <h1 className="text-2xl font-semibold text-[#614F7F]">Customers</h1>
         <Link
-          to="/product/add"
+          to="/customer/add"
           className="px-4 py-2 bg-[#614F7F] text-white rounded-md hover:bg-[#503F6F] transition-colors duration-300"
         >
-          Add New Product
+          Add New Customer
         </Link>
       </div>
 
@@ -161,25 +188,25 @@ const ListProduct: React.FC = () => {
           <input
             type="text"
             className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#614F7F]"
-            placeholder="Search products..."
+            placeholder="Search customers by name, email, or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Products table */}
+      {/* Customers table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="bg-gray-100">
             <tr>
               {[
                 "S.N",
+                "Photo",
                 "Name",
-                "Type",
-                "Price",
-                "Stock",
-                "Brand",
+                "Contact",
+                "Location",
+                "Date of Birth",
                 "Actions",
               ].map((header) => (
                 <th
@@ -198,48 +225,58 @@ const ListProduct: React.FC = () => {
                   Loading...
                 </td>
               </tr>
-            ) : currentProducts.length === 0 ? (
+            ) : currentCustomers.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-6 py-4 text-center">
-                  No products found
+                  No customers found
                 </td>
               </tr>
             ) : (
-              currentProducts.map((product, index) => (
-                <tr key={product.id} className="hover:bg-gray-50">
+              currentCustomers.map((customer, index) => (
+                <tr key={customer.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {indexOfFirstProduct + index + 1}
+                    {indexOfFirstCustomer + index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.name}
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                      {customer.customerPhoto ? (
+                        <img
+                          src={`/images/${customer.customerPhoto}`}
+                          alt={getFullName(customer)}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-500">
+                          {customer.firstName.charAt(0)}
+                        </div>
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.type}
+                    {getFullName(customer)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    ${product.price.toFixed(2)}
-                    {product.discountPrice && (
-                      <div className="text-sm text-green-600">
-                        ${product.discountPrice.toFixed(2)}
-                      </div>
-                    )}
+                    <div>{customer.email}</div>
+                    <div className="text-sm text-gray-500">
+                      {customer.mobileNumber}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.stock}
+                    {customer.location}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.brand}
+                    {formatDate(customer.dob)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <div className="flex justify-center space-x-3">
-                      <Link to={`/product/view/${product.id}`} title="View">
+                      <Link to={`/customer/view/${customer.id}`} title="View">
                         <FaEye className="text-blue-600 hover:text-blue-800" />
                       </Link>
-                      <Link to={`/product/edit/${product.id}`} title="Edit">
+                      <Link to={`/customer/edit/${customer.id}`} title="Edit">
                         <FaEdit className="text-yellow-600 hover:text-yellow-800" />
                       </Link>
                       <button
-                        onClick={() => handleDelete(product.id)}
+                        onClick={() => handleDelete(customer.id)}
                         title="Delete"
                       >
                         <FaTrash className="text-red-600 hover:text-red-800" />
@@ -298,4 +335,4 @@ const ListProduct: React.FC = () => {
   );
 };
 
-export default ListProduct;
+export default ListCustomer;

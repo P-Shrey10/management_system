@@ -2,94 +2,118 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit, FaTrash, FaSearch } from "react-icons/fa";
 
-interface Product {
+interface Staff {
   id: string;
-  name: string;
-  type: string;
-  price: number;
-  discountPrice: number | null;
-  stock: number;
-  brand: string;
-  sku: string;
-  description: string;
-  images: string[];
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  location: string;
+  dob: string;
+  staffId: string;
+  department: string;
+  documentType: string;
+  documentNumber: string;
+  staffPhoto: string;
+  documentFile: string;
 }
 
-const ListProduct: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+const ListStaff: React.FC = () => {
+  const [staffMembers, setStaffMembers] = useState<Staff[]>([]);
+  const [filteredStaffMembers, setFilteredStaffMembers] = useState<Staff[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(10);
+  const [staffPerPage] = useState<number>(10);
 
   useEffect(() => {
     setTimeout(() => {
-      const mockProducts: Product[] = [
+      const mockStaffMembers: Staff[] = [
         {
           id: "1",
-          name: "Smartphone X",
-          type: "Electronics",
-          price: 999.99,
-          discountPrice: 899.99,
-          stock: 50,
-          brand: "TechBrand",
-          sku: "TECH-SP-001",
-          description: "Latest smartphone with advanced features",
-          images: ["image1.jpg", "image2.jpg"],
+          firstName: "John",
+          middleName: "",
+          lastName: "Doe",
+          phone: "+1 (555) 123-4567",
+          email: "john.doe@example.com",
+          location: "New York, NY",
+          dob: "1985-06-15",
+          staffId: "STF001",
+          department: "Sales",
+          documentType: "passport",
+          documentNumber: "P12345678",
+          staffPhoto: "john_doe.jpg",
+          documentFile: "john_doe_passport.pdf",
         },
         {
           id: "2",
-          name: "Office Chair",
-          type: "Furniture",
-          price: 199.99,
-          discountPrice: null,
-          stock: 25,
-          brand: "ComfortPlus",
-          sku: "FURN-CH-002",
-          description: "Ergonomic office chair with lumbar support",
-          images: ["chair1.jpg"],
+          firstName: "Jane",
+          middleName: "Marie",
+          lastName: "Smith",
+          phone: "+1 (555) 987-6543",
+          email: "jane.smith@example.com",
+          location: "Los Angeles, CA",
+          dob: "1990-03-22",
+          staffId: "STF002",
+          department: "Marketing",
+          documentType: "national_id",
+          documentNumber: "ID98765432",
+          staffPhoto: "jane_smith.jpg",
+          documentFile: "jane_smith_id.jpg",
         },
         {
           id: "3",
-          name: "Wireless Headphones",
-          type: "Electronics",
-          price: 149.99,
-          discountPrice: 129.99,
-          stock: 100,
-          brand: "AudioMax",
-          sku: "TECH-HP-003",
-          description: "Noise cancelling wireless headphones",
-          images: ["headphones1.jpg", "headphones2.jpg"],
+          firstName: "Robert",
+          middleName: "",
+          lastName: "Johnson",
+          phone: "+1 (555) 456-7890",
+          email: "robert.johnson@example.com",
+          location: "Chicago, IL",
+          dob: "1988-11-10",
+          staffId: "STF003",
+          department: "IT",
+          documentType: "license",
+          documentNumber: "DL876543",
+          staffPhoto: "robert_johnson.jpg",
+          documentFile: "robert_johnson_license.pdf",
         },
         {
           id: "4",
-          name: "Coffee Table",
-          type: "Furniture",
-          price: 249.99,
-          discountPrice: 199.99,
-          stock: 15,
-          brand: "HomeStyle",
-          sku: "FURN-TB-004",
-          description: "Modern coffee table with storage",
-          images: ["table1.jpg"],
+          firstName: "Emily",
+          middleName: "Ann",
+          lastName: "Wilson",
+          phone: "+1 (555) 234-5678",
+          email: "emily.wilson@example.com",
+          location: "Miami, FL",
+          dob: "1992-07-30",
+          staffId: "STF004",
+          department: "HR",
+          documentType: "passport",
+          documentNumber: "P87654321",
+          staffPhoto: "emily_wilson.jpg",
+          documentFile: "emily_wilson_passport.pdf",
         },
         {
           id: "5",
-          name: "Smart Watch",
-          type: "Electronics",
-          price: 299.99,
-          discountPrice: 279.99,
-          stock: 75,
-          brand: "TechBrand",
-          sku: "TECH-WT-005",
-          description: "Smart watch with health monitoring",
-          images: ["watch1.jpg", "watch2.jpg"],
+          firstName: "Michael",
+          middleName: "James",
+          lastName: "Brown",
+          phone: "+1 (555) 876-5432",
+          email: "michael.brown@example.com",
+          location: "Seattle, WA",
+          dob: "1983-09-05",
+          staffId: "STF005",
+          department: "Finance",
+          documentType: "national_id",
+          documentNumber: "ID45678901",
+          staffPhoto: "michael_brown.jpg",
+          documentFile: "michael_brown_id.jpg",
         },
       ];
 
-      setProducts(mockProducts);
-      setFilteredProducts(mockProducts);
+      setStaffMembers(mockStaffMembers);
+      setFilteredStaffMembers(mockStaffMembers);
       setIsLoading(false);
     }, 1000);
   }, []);
@@ -97,36 +121,44 @@ const ListProduct: React.FC = () => {
   // Search function
   useEffect(() => {
     if (searchTerm.trim() === "") {
-      setFilteredProducts(products);
+      setFilteredStaffMembers(staffMembers);
     } else {
-      const filtered = products.filter((product) =>
-        [product.name, product.type, product.brand].some((field) =>
+      const filtered = staffMembers.filter((staff) =>
+        [
+          staff.firstName,
+          staff.lastName,
+          staff.department,
+          staff.staffId,
+          staff.location,
+        ].some((field) =>
           field.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
-      setFilteredProducts(filtered);
+      setFilteredStaffMembers(filtered);
     }
-  }, [searchTerm, products]);
+  }, [searchTerm, staffMembers]);
 
   // Delete handler
   const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      const updatedProducts = products.filter((product) => product.id !== id);
-      setProducts(updatedProducts);
-      setFilteredProducts(updatedProducts);
-      alert("Product deleted successfully");
+    if (window.confirm("Are you sure you want to delete this staff member?")) {
+      const updatedStaffMembers = staffMembers.filter(
+        (staff) => staff.id !== id
+      );
+      setStaffMembers(updatedStaffMembers);
+      setFilteredStaffMembers(updatedStaffMembers);
+      alert("Staff member deleted successfully");
     }
   };
 
   // Pagination logic
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
+  const indexOfLastStaff = currentPage * staffPerPage;
+  const indexOfFirstStaff = indexOfLastStaff - staffPerPage;
+  const currentStaffMembers = filteredStaffMembers.slice(
+    indexOfFirstStaff,
+    indexOfLastStaff
   );
 
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredStaffMembers.length / staffPerPage);
 
   const paginateNext = () => {
     if (currentPage < totalPages) {
@@ -143,12 +175,12 @@ const ListProduct: React.FC = () => {
   return (
     <div className="p-8 max-w-7xl mx-auto bg-white rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-[#614F7F]">Products</h1>
+        <h1 className="text-2xl font-semibold text-[#614F7F]">Staff Members</h1>
         <Link
-          to="/product/add"
+          to="/staff/add"
           className="px-4 py-2 bg-[#614F7F] text-white rounded-md hover:bg-[#503F6F] transition-colors duration-300"
         >
-          Add New Product
+          Add New Staff Member
         </Link>
       </div>
 
@@ -161,25 +193,25 @@ const ListProduct: React.FC = () => {
           <input
             type="text"
             className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#614F7F]"
-            placeholder="Search products..."
+            placeholder="Search staff by name, ID, department, or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Products table */}
+      {/* Staff table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="bg-gray-100">
             <tr>
               {[
                 "S.N",
+                "Photo",
                 "Name",
-                "Type",
-                "Price",
-                "Stock",
-                "Brand",
+                "Staff ID",
+                "Department",
+                "Contact",
                 "Actions",
               ].map((header) => (
                 <th
@@ -198,48 +230,58 @@ const ListProduct: React.FC = () => {
                   Loading...
                 </td>
               </tr>
-            ) : currentProducts.length === 0 ? (
+            ) : currentStaffMembers.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-6 py-4 text-center">
-                  No products found
+                  No staff members found
                 </td>
               </tr>
             ) : (
-              currentProducts.map((product, index) => (
-                <tr key={product.id} className="hover:bg-gray-50">
+              currentStaffMembers.map((staff, index) => (
+                <tr key={staff.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {indexOfFirstProduct + index + 1}
+                    {indexOfFirstStaff + index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.name}
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                      {staff.staffPhoto ? (
+                        <img
+                          src={`/images/${staff.staffPhoto}`}
+                          alt={`${staff.firstName} ${staff.lastName}`}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-500">
+                          {staff.firstName.charAt(0)}
+                        </div>
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.type}
+                    {`${staff.firstName} ${
+                      staff.middleName ? staff.middleName + " " : ""
+                    }${staff.lastName}`}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    ${product.price.toFixed(2)}
-                    {product.discountPrice && (
-                      <div className="text-sm text-green-600">
-                        ${product.discountPrice.toFixed(2)}
-                      </div>
-                    )}
+                    {staff.staffId}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.stock}
+                    {staff.department}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {product.brand}
+                    <div>{staff.email}</div>
+                    <div className="text-sm text-gray-500">{staff.phone}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <div className="flex justify-center space-x-3">
-                      <Link to={`/product/view/${product.id}`} title="View">
+                      <Link to={`/staff/view/${staff.id}`} title="View">
                         <FaEye className="text-blue-600 hover:text-blue-800" />
                       </Link>
-                      <Link to={`/product/edit/${product.id}`} title="Edit">
+                      <Link to={`/staff/edit/${staff.id}`} title="Edit">
                         <FaEdit className="text-yellow-600 hover:text-yellow-800" />
                       </Link>
                       <button
-                        onClick={() => handleDelete(product.id)}
+                        onClick={() => handleDelete(staff.id)}
                         title="Delete"
                       >
                         <FaTrash className="text-red-600 hover:text-red-800" />
@@ -277,7 +319,6 @@ const ListProduct: React.FC = () => {
                 {currentPage}
               </button>
             </li>
-
             <li>
               <button
                 onClick={paginateNext}
@@ -298,4 +339,4 @@ const ListProduct: React.FC = () => {
   );
 };
 
-export default ListProduct;
+export default ListStaff;
