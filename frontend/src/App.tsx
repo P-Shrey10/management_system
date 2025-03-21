@@ -21,6 +21,7 @@ import ListCustomer from "./components/customer/ListCustomer";
 import AddStaff from "./components/staff/AddStaff";
 import ViewStaff from "./components/staff/ViewStaff";
 import ListStaff from "./components/staff/ListStaff";
+import Settings from "./components/settings/Settings";
 
 const App: React.FC = () => {
   return (
@@ -200,6 +201,15 @@ const App: React.FC = () => {
         element={
           <AdminLayout>
             <ListStaff />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/settings"
+        element={
+          <AdminLayout>
+            <Settings />
           </AdminLayout>
         }
       />
