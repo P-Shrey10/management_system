@@ -6,12 +6,21 @@ import ForgotPassword from "./components/forget_password/ForgetPassword";
 import Signup from "./components/signup/Signup";
 import AdminLayout from "./adminMain";
 import Dashboard from "./components/dashboard/Dashboard";
+import AddOrder from "./components/order/AddOrder";
+import ViewOrder from "./components/order/ViewOrder";
+import ListOrder from "./components/order/ListOrder";
 import AddProduct from "./components/product/AddProduct";
 import ViewProduct from "./components/product/ViewProduct";
 import ListProduct from "./components/product/ListProduct";
 import AddShopkeeper from "./components/shopkeeper/AddShopkeeper";
 import ViewShopkeeper from "./components/shopkeeper/ViewShopkeeper";
 import ListShopkeeper from "./components/shopkeeper/ListShopkeeper";
+import AddCustomer from "./components/customer/AddCustomer";
+import ViewCustomer from "./components/customer/ViewCustomer";
+import ListCustomer from "./components/customer/ListCustomer";
+import AddStaff from "./components/staff/AddStaff";
+import ViewStaff from "./components/staff/ViewStaff";
+import ListStaff from "./components/staff/ListStaff";
 
 const App: React.FC = () => {
   return (
@@ -29,6 +38,40 @@ const App: React.FC = () => {
           </AdminLayout>
         }
       />
+
+      <Route
+        path="/order/add"
+        element={
+          <AdminLayout>
+            <AddOrder />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/order/view/:id"
+        element={
+          <AdminLayout>
+            <ViewOrder />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/order/edit/:id"
+        element={
+          <AdminLayout>
+            <AddOrder />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/order/list"
+        element={
+          <AdminLayout>
+            <ListOrder />
+          </AdminLayout>
+        }
+      />
+
       <Route
         path="/product/add"
         element={
@@ -61,6 +104,7 @@ const App: React.FC = () => {
           </AdminLayout>
         }
       />
+
       <Route
         path="/shopkeeper/add"
         element={
@@ -73,7 +117,7 @@ const App: React.FC = () => {
         path="/shopkeeper/view/:id"
         element={
           <AdminLayout>
-            <ViewShopkeeper/>
+            <ViewShopkeeper />
           </AdminLayout>
         }
       />
@@ -90,6 +134,72 @@ const App: React.FC = () => {
         element={
           <AdminLayout>
             <ListShopkeeper />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/customer/add"
+        element={
+          <AdminLayout>
+            <AddCustomer />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/customer/view/:id"
+        element={
+          <AdminLayout>
+            <ViewCustomer />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/customer/edit/:id"
+        element={
+          <AdminLayout>
+            <AddCustomer />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/customer/list"
+        element={
+          <AdminLayout>
+            <ListCustomer />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/staff/add"
+        element={
+          <AdminLayout>
+            <AddStaff />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/staff/view/:id"
+        element={
+          <AdminLayout>
+            <ViewStaff />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/staff/edit/:id"
+        element={
+          <AdminLayout>
+            <AddStaff />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/staff/list"
+        element={
+          <AdminLayout>
+            <ListStaff />
           </AdminLayout>
         }
       />

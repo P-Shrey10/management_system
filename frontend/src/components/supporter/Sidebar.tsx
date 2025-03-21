@@ -62,6 +62,12 @@ const Sidebar = () => {
             </div>
             {orderOpen && (
               <div className="pl-6 space-y-2">
+                <Link to="/order/add">
+                  <div className="flex items-center space-x-3 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition-all duration-200">
+                    <FaPlus className="text-[#614F7F]" />
+                    <span className="text-[#614F7F]">Add Order</span>
+                  </div>
+                </Link>
                 <Link to="/order/list">
                   <div className="flex items-center space-x-3 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition-all duration-200">
                     <FaList className="text-[#614F7F]" />
