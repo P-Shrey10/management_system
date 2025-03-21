@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Logo from "../../../public/logo.png";
+import Logo from "/logo.png";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

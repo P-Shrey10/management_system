@@ -13,7 +13,7 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Logo from "../../../public/logo.png";
+import Logo from "/logo.png";
 
 const Sidebar = () => {
   const [orderOpen, setOrderOpen] = useState(false);
