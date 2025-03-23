@@ -1,10 +1,14 @@
 # Node modules
-node_modules/
+node_modules
 
 # Logs
-logs/
+logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Environment variables
 .env
@@ -12,20 +16,37 @@ npm-debug.log*
 # Build output
 build/
 dist/
+out/
 
-# IDEs
-.vscode/
-.idea/
+# Cache directories
+.cache/
+tmp/
+.nyc_output/
 
-# OS specific files
+# OS-specific files
 .DS_Store
 Thumbs.db
 
-# Frontend build folder (if React build is inside the client folder)
-client/build/
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# Backend build or output folder (if any)
-server/build/
-
-# Other
+# Jest and testing cache
 coverage/
+jest-cache/
+jest-html-reporters/
+
+# Debug logs
+*.log
+*.lock
+.pnpm-debug.log
+
+# Miscellaneous
+.npmrc
+package-lock.json
+yarn.lock
